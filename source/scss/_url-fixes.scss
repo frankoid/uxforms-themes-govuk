@@ -1,0 +1,43 @@
+// Fixing up url paths inherited from govuk-template
+@import "govuk-frontend-toolkit/conditionals";
+
+a[rel="external"]:after {
+  background-image: url(/assets/govuk/stylesheets/external-links/external-link.png);
+}
+
+@media only screen and (-webkit-min-device-pixel-ratio: 2), only screen and (min--moz-device-pixel-ratio: 2), only screen and (-o-min-device-pixel-ratio: 20 / 10), only screen and (min-device-pixel-ratio: 2), only screen and (min-resolution: 192dpi), only screen and (min-resolution: 2dppx) {
+  a[rel="external"]:after {
+    background-image: url(/assets/govuk/stylesheets/external-links/external-link-24x24.png);
+  }
+}
+
+.external-link:after {
+  background-image: url(/assets/govuk/stylesheets/external-links/external-link-black-12x12.png);
+}
+
+@media only screen and (-webkit-min-device-pixel-ratio: 2), only screen and (min--moz-device-pixel-ratio: 2), only screen and (-o-min-device-pixel-ratio: 20 / 10), only screen and (min-device-pixel-ratio: 2), only screen and (min-resolution: 192dpi), only screen and (min-resolution: 2dppx) {
+  .external-link:after {
+    background-image: url(/assets/govuk/stylesheets/external-links/external-link-black-24x24.png);
+    background-size: 12px 400px;
+  }
+}
+
+#footer .footer-meta .footer-meta-inner .open-government-licence .logo a {
+  background-image: url(/assets/govuk/stylesheets/images/open-government-licence.png);
+}
+
+@media only screen and (-webkit-min-device-pixel-ratio: 2), only screen and (min--moz-device-pixel-ratio: 2), only screen and (-o-min-device-pixel-ratio: 20 / 10), only screen and (min-device-pixel-ratio: 2), only screen and (min-resolution: 192dpi), only screen and (min-resolution: 2dppx) {
+  #footer .footer-meta .footer-meta-inner .open-government-licence .logo a {
+    background-image: url(/assets/govuk/stylesheets/images/open-government-licence_2x.png);
+  }
+}
+
+#footer .footer-meta .copyright a {
+  background-image: url(/assets/govuk/stylesheets/images/govuk-crest.png);
+}
+
+@media only screen and (-webkit-min-device-pixel-ratio: 2), only screen and (min--moz-device-pixel-ratio: 2), only screen and (-o-min-device-pixel-ratio: 20 / 10), only screen and (min-device-pixel-ratio: 2), only screen and (min-resolution: 192dpi), only screen and (min-resolution: 2dppx) {
+  #footer .footer-meta .copyright a {
+    background-image: url(/assets/govuk/stylesheets/images/govuk-crest-2x.png);
+  }
+}

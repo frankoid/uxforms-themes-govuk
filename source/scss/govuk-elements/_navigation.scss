@@ -1,0 +1,46 @@
+@import "../govuk-frontend-toolkit/colours";
+
+.progress-indicator {
+
+  ol {
+    margin-top: 0;
+    list-style: decimal inside;
+    border-bottom: 1px solid $border-colour;
+    overflow: hidden;
+    padding: 0;
+
+    li {
+      float: left;
+      margin-top: 5px;
+      margin-right: 20px;
+
+      a {
+        text-decoration: none;
+      }
+
+    }
+
+    li.active {
+      a:visited {
+        color: $link-active-colour;
+      }
+    }
+
+    li.inactive {
+      color: $secondary-text-colour;
+      a:hover {
+        color: $secondary-text-colour;
+      }
+    }
+
+    li.current {
+      $li-current-colour: $black;
+      border-bottom: 3px solid $li-current-colour;
+      font-weight: bold;
+      a:hover {
+        color: $li-current-colour;
+      }
+    }
+  }
+
+}

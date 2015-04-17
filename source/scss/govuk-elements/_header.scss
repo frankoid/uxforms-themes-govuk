@@ -1,0 +1,21 @@
+@import "../govuk-frontend-toolkit/design-patterns/alpha-beta";
+
+#global-header-bar {
+  @extend %site-width-container;
+  .inner-block {
+    padding: 0;
+  }
+  .header-bar {
+    background-color: $home-office;
+  }
+}
+
+.phase-banner {
+  @include phase-banner($state: alpha);
+}
+
+.phase-tag {
+  @include phase-tag;
+}
+
+

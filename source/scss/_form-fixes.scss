@@ -1,0 +1,32 @@
+.form-title {
+  margin-top: $gutter;
+}
+
+.validation-summary {
+  background-color: $error-background;
+  padding-left: $gutter-one-quarter;
+
+  ol {
+    padding-left: $gutter-two-thirds;
+    color: $error-colour;
+
+    a, a:visited {
+      text-decoration: none;
+      color: $error-colour;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+
+  }
+}
+
+.validation-error {
+  $error-border-width: 3px;
+  border-left: $error-border-width solid $error-colour;
+  background-color: $error-background;
+
+  padding-left: $gutter-one-quarter;
+  width: calc(100% - (#{$error-border-width} + #{$gutter-one-quarter}))
+}
