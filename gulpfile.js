@@ -1,6 +1,7 @@
 var gulp = require('gulp');
 var sass = require('gulp-sass');
-var del = require('del')
+var del = require('del');
+var runSequence = require('run-sequence');
 
 gulp.task('sass', function () {
     gulp.src('./source/scss/*.scss')
@@ -12,6 +13,6 @@ gulp.task('clean', function(c) {
     del(['target'], c);
 });
 
-gulp.task('default', ['clean'], function() {
-	gulp.start('sass');
+gulp.task('default', ['clean'], function(d) {
+	runSequence('sass', d);
 });
