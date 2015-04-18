@@ -28,5 +28,5 @@ gulp.task('package', ['sass', 'static'], function(p) {
 })
 
 gulp.task('default', ['clean'], function(d) {
-	runSequence(['sass', 'static'], 'package', d);
+	runSequence('package', d);
 });
