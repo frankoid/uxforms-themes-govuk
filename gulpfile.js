@@ -35,5 +35,5 @@ gulp.task('package', ['sass', 'static'], function() {
 });
 
 gulp.task('default', ['clean'], function(d) {
-	runSequence('package', d);
+	return runSequence('package', d);
 });
