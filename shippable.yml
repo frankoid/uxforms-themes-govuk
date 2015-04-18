@@ -1,0 +1,23 @@
+
+env:
+  - secure: T3gECayR8QfCLSQ4l6WQAy8kkmM+ED9j9OHcd1QdTXZeCJTkTisPWpjs8QHkkTpdMxn6D1LT0Lb84D5vfUUpq7cR+WY6hYFA2ABlgmFIB2A9lKQcWKvyhXeK/2qfmEhkflbHhjFDvOl+REhQGK4ixfCQ94scKCMwD/Oc4QoI13hqdd8kzMBcSEVJHfI1SfPH/OfrQrBkGBEjddQh1isuVQ2o9oMc2bp6aMb2m0GZKzqAer4AEpmBUVp7FMKwj+q9o42w6QuG9DBBsoNe05docqmv5xSWXMqTzz28BIipe+kO6VyDmHb7blFPLs8/TBEUt62F13tNg6oDP9/LOL5qyQ==
+ 
+before_install:
+  - npm install
+  
+script:
+  - gulp
+
+after_success:
+   - sudo apt-get install s3cmd
+   - echo -e "[default]\naccess_key = $ACCESS_KEY\nsecret_key=$SECRET_KEY\n" > /home/shippable/.s3cfg
+   - s3cmd -v put `find target -name govuk-*.tar.gz` s3://uxforms-themes-releases/govuk-$BUILD_NUMBER.tar.gz
+
+notifications:
+     email:
+         recipients:
+             - shippable@martingladdish.co.uk
+         on_success: change
+         on_failure: always  
+
+cache: true
