@@ -7,19 +7,20 @@ var gzip = require('gulp-gzip');
 var pkg = require('./package.json');
 
 var TARGET_DIR = './target';
+var SOURCE_DIR = './source';
 
 function artifactName(extension) {
 	return pkg.name + '-' + pkg.version + extension
 }
 
 gulp.task('sass', function () {
-    return gulp.src('./source/scss/*.scss')
+    return gulp.src(SOURCE_DIR + '/scss/*.scss')
         	.pipe(sass())
 			.pipe(gulp.dest(TARGET_DIR + '/stylesheets'));
 });
 
 gulp.task('static', function() {
-	return gulp.src('./source/static/**')
+	return gulp.src(SOURCE_DIR + '/static/**')
 				.pipe(gulp.dest(TARGET_DIR));
 })
 
