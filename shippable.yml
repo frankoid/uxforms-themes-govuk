@@ -22,7 +22,7 @@ script:
 after_success:
    - sudo apt-get install s3cmd
    - echo -e "[default]\naccess_key = $ACCESS_KEY\nsecret_key=$SECRET_KEY\n" > /home/shippable/.s3cfg
-   - s3cmd -v put `find target -name govuk-*.tar.gz` s3://uxforms-themes-releases/govuk-$BUILD_NUMBER.tar.gz
+   - s3cmd -v put `find target -name govuk-*.zip` s3://uxforms-themes-releases/govuk-$BUILD_NUMBER.zip
 
 notifications:
      email:
