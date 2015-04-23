@@ -3,7 +3,7 @@ var sass = require('gulp-sass');
 var del = require('del');
 var runSequence = require('run-sequence');
 var tar = require('gulp-tar');
-var gzip = require('gulp-gzip');
+var zip = require('gulp-zip');
 var pkg = require('./package.json');
 
 var TARGET_DIR = './target';
@@ -30,8 +30,7 @@ gulp.task('clean', function(c) {
 
 gulp.task('package', ['sass', 'static'], function() {
 	return gulp.src(TARGET_DIR + '/**')
-			.pipe(tar(artifactName('.tar')))
-			.pipe(gzip())
+			.pipe(zip(artifactName('.zip')))
 			.pipe(gulp.dest(TARGET_DIR))
 });
 
