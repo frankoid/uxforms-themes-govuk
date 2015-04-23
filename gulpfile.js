@@ -2,7 +2,6 @@ var gulp = require('gulp');
 var sass = require('gulp-sass');
 var del = require('del');
 var runSequence = require('run-sequence');
-var tar = require('gulp-tar');
 var zip = require('gulp-zip');
 var pkg = require('./package.json');
 
