@@ -1,4 +1,4 @@
-<div class="form-group {{#validationMessages}} validation-error {{/validationMessages}} {{^shown}} hidden {{/shown}}" id="{{widgetId}}">
+<div class="form-group {{#validationMessages}} validation-error {{/validationMessages}} {{#hidden}} hidden {{/hidden}}" id="{{widgetId}}">
 	{{#fieldset}}
   	<fieldset>
 	{{/fieldset}}
@@ -13,6 +13,7 @@
 	</label>
 
   {{ > widget }}
+	
   {{#fieldset}}
   	</fieldset>
 	{{/fieldset}}
