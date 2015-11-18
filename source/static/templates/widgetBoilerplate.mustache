@@ -1,0 +1,19 @@
+<div class="form-group {{#validationMessages}} validation-error {{/validationMessages}} {{^shown}} hidden {{/shown}}" id="{{widgetId}}">
+	{{#fieldset}}
+  	<fieldset>
+	{{/fieldset}}
+	<label class="form-label-bold" for="{{id}}">
+		{{#validationMessages}}
+    	<span class="validation-message">{{.}}</span>
+    {{/validationMessages}}
+		{{label}}
+    {{#hasHint}}
+			<span class="form-hint">{{hint}}</span>
+		{{/hasHint}}
+	</label>
+
+  {{ > widget }}
+  {{#fieldset}}
+  	</fieldset>
+	{{/fieldset}}
+</div>
