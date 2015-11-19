@@ -1,6 +1,6 @@
-<div class="form-group {{#validationMessages}} validation-error {{/validationMessages}} {{#hidden}} hidden {{/hidden}}" id="{{widgetId}}">
+<div class="form-group {{#validationMessages}} validation-error {{/validationMessages}} {{#hidden}} hidden {{/hidden}} {{#forRadioButtons}} selectable-list {{/forRadioButtons}}" id="{{widgetId}}">
 	{{#fieldset}}
-  	<fieldset>
+  	<fieldset class="{{#displayAsRow}} inline {{/displayAsRow}}">
 	{{/fieldset}}
 	<label class="form-label-bold" for="{{id}}">
 		{{#validationMessages}}
