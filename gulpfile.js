@@ -4,6 +4,7 @@ var del = require('del');
 var runSequence = require('run-sequence');
 var zip = require('gulp-zip');
 var pkg = require('./package.json');
+var bump = require('gulp-bump')
 
 var TARGET_DIR = './target';
 var SOURCE_DIR = './source';
@@ -25,6 +26,12 @@ gulp.task('static', function() {
 
 gulp.task('clean', function(c) {
     return del(TARGET_DIR, c);
+});
+
+gulp.task('bump', function() {
+    return gulp.src('./package.json')
+        .pipe(bump({type:'minor'}))
+        .pipe(gulp.dest('./'));
 });
 
 gulp.task('package', ['sass', 'static'], function() {
