@@ -10,6 +10,7 @@
     "run-sequence": "^1.0.2",
     "gulp-bump": "^1.0.0",
     "gulp-git": "^1.7.0",
-    "properties-reader": "^0.0.15"
+    "properties-reader": "^0.0.15",
+		"gulp-bintray": "^0.2.4"
   }
 }

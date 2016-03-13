@@ -8,6 +8,7 @@ var bump = require('gulp-bump');
 var git = require('gulp-git');
 var props = require('properties-reader');
 var fs = require('fs');
+var bintray = require("gulp-bintray");
 
 var TARGET_DIR = './target';
 var SOURCE_DIR = './source';
