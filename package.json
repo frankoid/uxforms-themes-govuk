@@ -1,6 +1,6 @@
 {
   "name": "govuk",
-  "version": "0.3.0",
+  "version": "0.4.0",
   "description": "A set of css, images and javascript to implement the GOV.UK styles on uxforms",
   "devDependencies": {
     "del": "^1.1.1",
@@ -11,6 +11,6 @@
     "gulp-bump": "^1.0.0",
     "gulp-git": "^1.7.0",
     "properties-reader": "^0.0.15",
-		"gulp-bintray": "^0.2.4"
+    "gulp-bintray": "^0.2.4"
   }
 }
