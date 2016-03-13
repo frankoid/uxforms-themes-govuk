@@ -7,6 +7,7 @@ var pkg = require('./package.json');
 var bump = require('gulp-bump');
 var git = require('gulp-git');
 var props = require('properties-reader');
+var fs = require('fs');
 
 var TARGET_DIR = './target';
 var SOURCE_DIR = './source';
