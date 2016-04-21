@@ -94,11 +94,11 @@ gulp.task('create-new-tag', function (cb) {
 
 
 gulp.task('bintray', ['package'], function() {
-	console.log()
 	return gulp.src(TARGET_DIR + '/*.zip')
 	.pipe(bintray(bintrayopts));
 })
 
+// Work in progress - fails when uploading to bintray
 gulp.task('release', function(d) {
 	runSequence(
 		'bump-version',
