@@ -94,7 +94,8 @@ gulp.task('create-new-tag', function (cb) {
 
 
 gulp.task('bintray', ['package'], function() {
-	return gulp.src(TARGET_DIR + '*.zip')
+	console.log()
+	return gulp.src(TARGET_DIR + '/*.zip')
 	.pipe(bintray(bintrayopts));
 })
 
