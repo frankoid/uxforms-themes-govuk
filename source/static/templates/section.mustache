@@ -12,13 +12,13 @@
 	</div>
 	{{ /hasValidationErrors }}
 
-	<form method="post" action="{{ postAction }}" class="form">
+	<form method="post" class="form">
 
 	{{{ widgets }}}
 
 	<button class="button secondary" name="{{previousButtonName}}" {{#isFirstSection}}disabled{{/isFirstSection}}>
 		{{previousButton}}
-	</button>	
+	</button>
 
 	<button class="button primary">
 		{{^isLastSection}}
