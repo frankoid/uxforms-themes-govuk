@@ -2,13 +2,13 @@
 
 <h1 class="form-title heading-large">{{sectionTitle}}</h1>
 	{{ #hasValidationErrors }}
-	<div class="validation-summary">
-    	<h1 class="form-label-bold">{{ errorTitle }}</h1>
-      	<ol>
+	<div class="error-summary" role="group" aria-labelledby="error-summary-heading">
+    	<h1 id="error-summar-heading" class="heading-medium error-summary-heading">{{ errorTitle }}</h1>
+      	<ul class="error-summary-list">
         	{{ #validationErrors }}
-			<li><a href="#{{widgetId}}">{{validationMessage}}</a></li>
-			{{ /validationErrors }}
-		</ol>
+						<li><a href="#{{widgetId}}">{{validationMessage}}</a></li>
+					{{ /validationErrors }}
+				</ul>
 	</div>
 	{{ /hasValidationErrors }}
 
