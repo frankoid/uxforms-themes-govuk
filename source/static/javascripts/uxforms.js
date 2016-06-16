@@ -3,8 +3,9 @@ if ($(".error-summary").length) {
   $(".error-summary").focus();
   $(".error-summary a").click(function(e) {
     e.preventDefault();
-    var href = $(this).attr("href");
-    $(href).focus();
+    var targetId = $(this).attr("href");
+    //find first input lement in group and apply focus
+    $(targetId).find('input:first, select').focus();
   });
 }
 // Otherwise, set focus to the field with the error
