@@ -1,5 +1,3 @@
 node_modules/
 target/
-publish.sh
-publishLocal.sh
-
+publish*.sh
