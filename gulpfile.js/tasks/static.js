@@ -33,12 +33,16 @@ gulp.task('static:uxforms:templates', function(){
 
 gulp.task('static:vendor:ie-html5shiv', function(){
 	return gulp.src('./node_modules/html5shiv/dist/html5shiv-printshiv.js')
-				.pipe(gulp.dest(config.TARGET_DIR + '/javascripts'));
+				.pipe(gulp.dest(config.TARGET_DIR + '/javascripts/vendor'));
 });
 
 gulp.task('static:vendor:json3', function(){
 	return gulp.src('./node_modules/json3/lib/json3.min.js')
-				.pipe(gulp.dest(config.TARGET_DIR + '/javascripts'));
+				.pipe(gulp.dest(config.TARGET_DIR + '/javascripts/vendor'));
+});
+gulp.task('static:vendor:jquery', function(){
+	return gulp.src('./node_modules/jquery/dist/jquery.min.js')
+				.pipe(gulp.dest(config.TARGET_DIR + '/javascripts/vendor/jquery'));
 });
 
 
@@ -50,5 +54,6 @@ gulp.task('static',[
   'static:uxforms:javascripts',
   'static:uxforms:templates',
   'static:vendor:ie-html5shiv',
-  'static:vendor:json3'
+  'static:vendor:json3',
+  'static:vendor:jquery'
 ]);
