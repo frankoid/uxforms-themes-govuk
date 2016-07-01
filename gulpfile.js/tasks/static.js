@@ -27,7 +27,7 @@ gulp.task('static:uxforms:govuk_template:stylesheets', function(){
         .pipe(gulp.dest(config.TARGET_DIR));
 });
 gulp.task('static:uxforms:templates', function(){
-  return gulp.src(config.SOURCE_DIR + '/static/templates/*', { base: config.SOURCE_DIR + '/static' })
+  return gulp.src(config.SOURCE_DIR + '/static/templates/**/*', { base: config.SOURCE_DIR + '/static' })
         .pipe(gulp.dest(config.TARGET_DIR));
 });
 
