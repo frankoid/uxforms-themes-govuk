@@ -6,6 +6,7 @@ var clean = require('gulp-clean');
 
 var bintrayopts = {
 	username: 'sebpaterson',
+	config: require('../config'),
 	organization: 'equalexperts',  // default: username
 	repository: 'uxforms-releases',
 		pkg: {
