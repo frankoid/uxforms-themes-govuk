@@ -4,13 +4,13 @@ var gulp = require('gulp'),
     config = require('../config'),
     creds = function(){},//props(process.env.HOME + "/.bintray/.credentials"),
     bintrayopts = {
-    // 	username: creds._properties.user,
-    // 	organization: 'equalexperts',
-    // 	repository: 'uxforms-releases',
-    // 	pkg: {
-    // 		name: 'govuk'
-    // 	},
-    // 	apikey: creds._properties.password
+    	username: creds._properties.user,
+    	organization: 'equalexperts',
+    	repository: 'uxforms-releases',
+    	pkg: {
+    		name: 'govuk'
+    	},
+    	apikey: creds._properties.password
     }
 
 gulp.task('bintray', ['package'], function() {
