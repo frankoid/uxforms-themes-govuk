@@ -6,7 +6,7 @@ var clean = require('gulp-clean');
 
 var bintrayopts = {
 	username: 'sebpaterson',
-	config: require('../config'),
+	// config: require('../config'),
 	organization: 'equalexperts',  // default: username
 	repository: 'uxforms-releases',
 		pkg: {
@@ -25,7 +25,7 @@ var bintrayopts = {
 // });
 
 gulp.task('bintray', ['package'], function() {
-	return gulp.src(config.TARGET_DIR + '/*.zip')
+	return gulp.src('target/*.zip')
 		// .pipe(zip('archive.zip'))
 		.pipe(gulp.dest('.'))
 		.pipe(bintray(bintrayopts))
