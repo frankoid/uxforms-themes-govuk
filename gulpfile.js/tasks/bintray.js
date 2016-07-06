@@ -2,7 +2,7 @@ var gulp = require('gulp');
 var zip = require('gulp-zip');
 var bintray = require('gulp-bintray');
 var clean = require('gulp-clean');
-var bump = require('gulp-bump');
+// var bump = require('gulp-bump');
 
 var bintrayopts = {
 	username: 'sebpaterson',
