@@ -24,8 +24,9 @@ gulp.task('bintray', ['package'], function() {
 	return gulp.src(config.TARGET_DIR + '/*.zip')
 		// .pipe(zip('archive.zip'))
 		.pipe(gulp.dest('.'))
-		.pipe(bintray(bintrayopts))
-		.pipe(clean())
+		// .pipe(bintray(bintrayopts))
+		// .pipe(clean())
+		.pipe(bintray(publish))
 });
 
 gulp.task('publish', ['bintray'], function(callback) {
