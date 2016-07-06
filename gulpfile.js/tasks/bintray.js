@@ -23,7 +23,7 @@ var bintrayopts = {
 // 		.pipe(gulp.dest('./'))
 // });
 
-gulp.task('bintray', ['bump'], function() {
+gulp.task('bintray', ['package'], function() {
 	return gulp.src(config.TARGET_DIR + '/*.zip')
 		// .pipe(zip('archive.zip'))
 		.pipe(gulp.dest('.'))
