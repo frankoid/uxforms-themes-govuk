@@ -3,10 +3,12 @@ var zip = require('gulp-zip');
 var bintray = require('gulp-bintray');
 var clean = require('gulp-clean');
 // var bump = require('gulp-bump');
+props = require('properties-reader'),
+creds = props(process.env.HOME + "/.bintray/.credentials"),
+config = require('../config');
 
 var bintrayopts = {
-	username: 'sebpaterson',
-	// config: require('../config'),
+	username: creds._properties.user, //'sebpaterson',
 	organization: 'equalexperts',  // default: username
 	repository: 'uxforms-releases',
 		pkg: {
@@ -14,23 +16,23 @@ var bintrayopts = {
 		// version: '0.1.0',            // default: package.version
 		desc: 'Automatically created gulp-bintray package'
 	},
-	apikey: '9f68eed391cdc8cca7613a07ab2b639066d01b8b'
+	apikey: creds._properties.password, //'9f68eed391cdc8cca7613a07ab2b639066d01b8b'
 	// baseUrl: null;                // default: Bintray.apiBaseUrl
 };
+
+gulp.task('bintray', ['package'], function() {
+	return gulp.src(config.TARGET_DIR + '/*.zip')
+		// .pipe(zip('archive.zip'))
+		.pipe(gulp.dest('.'))
+		.pipe(bintray(bintrayopts))
+		.pipe(clean())
+});
 
 // gulp.task('bump', function() {
 // 	return gulp.src('./package.json')
 // 		.pipe(bump({type:'minor'}))
 // 		.pipe(gulp.dest('./'))
 // });
-
-gulp.task('bintray', ['package'], function() {
-	return gulp.src('target/*.zip')
-		// .pipe(zip('archive.zip'))
-		.pipe(gulp.dest('.'))
-		.pipe(bintray(bintrayopts))
-		.pipe(clean())
-});
 
 // gulp.task('release', ['bump', 'bintray' ], function() {
 // 	console.log('Released minor version ' + require('./package.json').version);
