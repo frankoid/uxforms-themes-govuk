@@ -1,6 +1,6 @@
+var bump = require('gulp-bump');
 var gulp = require('gulp'),
     runSequence = require('run-sequence');
-// Work in progress - fails when uploading to bintray
 gulp.task('release', function(d) {
 	runSequence(
 		'bump-version',
@@ -10,3 +10,9 @@ gulp.task('release', function(d) {
 		'bintray'
 	)
 })
+
+// gulp.task('bump', function() {
+// 	return gulp.src('./package.json')
+// 		.pipe(bump({type:'minor'}))
+// 		.pipe(gulp.dest('./'))
+// });
