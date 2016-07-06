@@ -48,7 +48,8 @@ node {
 
     stage 'Release'
     try {
-        sh '''npm install
+        sh '''export SBT_OPTS="${SBT_OPTS} -Dsbt.jse.engineType=Node -Dsbt.jse.command=$(which nodejs)"
+        npm install
         gulp release'''
         notify("good", "${repo} deployed to dev")
     } catch (err) {

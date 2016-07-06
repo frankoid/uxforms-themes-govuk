@@ -2,7 +2,7 @@ var gulp = require('gulp'),
     bintray = require('gulp-bintray'),
     props = require('properties-reader'),
     config = require('../config'),
-    creds = function(){},//props(process.env.HOME + "/.bintray/.credentials"),
+    creds = props(process.env.HOME + "/.bintray/.credentials"),
     bintrayopts = {
     	username: creds._properties.user,
     	organization: 'equalexperts',
