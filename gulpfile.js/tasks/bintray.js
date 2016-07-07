@@ -31,7 +31,7 @@ gulp.task('publish', ['bintray'], function(callback) {
 gulp.task('bintray', ['package'], function() {
 	return gulp.src(config.TARGET_DIR +'/*.zip') //
 		.pipe(gulp.dest('.'))
-		.pipe(NodeBintray(bintrayopts))
+		.pipe(bintray(bintrayopts))
 		.pipe(clean())
 	// .pipe(bintray(publish))
 });
