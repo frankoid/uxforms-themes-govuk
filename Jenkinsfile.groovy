@@ -1,11 +1,12 @@
 
 //Need setting
-    def name = "govuk"
-    def proj = "themes-"  //can be set to nothing
+def name = "govuk"
+def proj = "themes-"  //can be set to nothing
+def bin_repo = "uxforms-releases"
 
 //Calculated
-    def repo = "uxforms-"+proj+name  // e.g. uxforms-formdef-patternlibrary
-    def workspace = env.JENKINS_HOME+"/workspace/"+env.JOB_NAME  // e.g. the workspace dir
+def repo = "uxforms-"+proj+name  // e.g. uxforms-formdef-patternlibrary
+def workspace = env.JENKINS_HOME+"/workspace/"+env.JOB_NAME  // e.g. the workspace dir
 
 node {
     stage 'Checkout'
@@ -48,10 +49,19 @@ node {
 
     stage 'Release'
     try {
-        sh '''export SBT_OPTS="${SBT_OPTS} -Dsbt.jse.engineType=Node -Dsbt.jse.command=$(which nodejs)"
-        npm install
-        gulp release'''
-        notify("good", "${repo} deployed to dev")
+        withCredentials([[$class: 'UsernamePasswordMultiBinding', credentialsId: '1981dc28-d11d-4eb8-9ff0-c6d686a93303', passwordVariable: 'GIT_PASSWORD', usernameVariable: 'GIT_USER']]) {
+            // Add creds to be able to commit back
+            sh '''git config remote.origin.fetch +refs/heads/*:refs/remotes/origin/*
+                git config branch.master.remote origin
+                git config branch.master.merge refs/heads/master'''
+            sh '''git config --local credential.helper "store --file=/tmp/jenkins/.gitcreds"
+                mkdir -p /tmp/jenkins
+                echo "https://${GIT_USER}:${GIT_PASSWORD}@bitbucket.org/uxforms/${repo}.git" >> /tmp/jenkins/.gitcreds'''
+            sh '''export SBT_OPTS="${SBT_OPTS} -Dsbt.jse.engineType=Node -Dsbt.jse.command=$(which nodejs)"
+                npm install
+                gulp publish'''
+            notify("good", "${repo} deployed to dev")
+        }
     } catch (err) {
         notify("danger", "${repo} deployment to dev failed")
         currentBuild.result = 'FAILURE'
@@ -60,8 +70,27 @@ node {
 
     stage 'Deploy'
     try {
-//        This needs to hit the static-deployer jenkins job
-//        sh '''wget --method PUT --header 'content-type: application/json' --header 'authorization: UXFORMS-TOKEN apikey="4960eaac-52a9-4302-8e84-ae7ee9b1b690"' --body-file=target/govuk-0.1.0.zip http://static-deployer.dev.uxforms.com/themes/govuk'''
+        sleep 30
+        sh "curl -u uxformsdeployer:76e8e0cf3e751df431713a2fab2a4cc15125c309 https://api.bintray.com/packages/equalexperts/$bin_repo/$name/versions/_latest > /tmp/$name"
+        curl = readFile("/tmp/$name").trim()
+        def version_no = getVersionNo(curl)
+        echo "Version number is ${version_no}"
+        build job: 'FelixDeploy', parameters: [[$class: 'StringParameterValue', name: 'ansible_env', value: 'dev'], [$class: 'StringParameterValue', name: 'felix_host', value: 'forms'], [$class: 'StringParameterValue', name: 'jar_ver', value: "${version_no}"], [$class: 'StringParameterValue', name: 'jar_name_ver', value: "${artif}"], [$class: 'StringParameterValue', name: 'repo', value: "${bin_repo}"]]
+        notify("good", "${repo} ${version_no} deployed to dev")
+    } catch (err) {
+        notify("danger", "${repo} ${version_no} deployment to dev failed")
+        currentBuild.result = 'FAILURE'
+        throw err
+    }
+
+    stage 'Deploy'
+    try {
+        sleep 30
+        sh "curl -u uxformsdeployer:76e8e0cf3e751df431713a2fab2a4cc15125c309 https://api.bintray.com/packages/equalexperts/$bin_repo/$name/versions/_latest > /tmp/$name"
+        curl = readFile("/tmp/$name").trim()
+        def version_no = getVersionNo(curl)the
+        echo "Version number is ${version_no}"
+        build job: 'Static-Deployer Deployer', parameters: [[$class: 'StringParameterValue', name: 'enviro', value: "${enviro}"], [$class: 'StringParameterValue', name: 'name', value: "${name}"], [$class: 'StringParameterValue', name: 'repo', value: "${bin_repo}"], [$class: 'StringParameterValue', name: 'version_no', value: "${version_no}"]]
         notify("good", "${repo} deployed to dev")
     } catch (err) {
         notify("danger", "${repo} deployment to dev failed")
@@ -71,5 +100,5 @@ node {
 }
 
 def notify(String c, String m) {
-//    slackSend(color: c, message: "<${env.BUILD_URL}|${env.JOB_NAME} ${env.BUILD_NUMBER}> " + m)
+    slackSend(color: c, message: "<${env.BUILD_URL}|${env.JOB_NAME} ${env.BUILD_NUMBER}> " + m)
 }
