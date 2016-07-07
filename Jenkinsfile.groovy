@@ -102,3 +102,9 @@ node {
 def notify(String c, String m) {
     slackSend(color: c, message: "<${env.BUILD_URL}|${env.JOB_NAME} ${env.BUILD_NUMBER}> " + m)
 }
+
+@NonCPS
+def getVersionNo(String curly) {
+    def json = new JsonSlurper().setType(RELAX).parseText(curly)
+    return json.name
+}
