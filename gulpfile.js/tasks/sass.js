@@ -1,11 +1,12 @@
 var gulp = require('gulp'),
     config = require('../config'),
     sass = require('gulp-sass'),
-    preprocess = require('gulp-preprocess');
+    preprocess = require('gulp-preprocess'),
+    pkg = require('../../package.json');
 
 gulp.task('sass', function () {
     var settings = {
-      THEME_NAME : process.env.THEME_NAME || 'govuk'
+      THEME_NAME : pkg.name
     }
     return gulp.src(config.SOURCE_DIR + '/scss/*.scss')
     	.pipe(sass({
