@@ -7,7 +7,7 @@ gulp.task('release', function(d) {
 		'commit-changes',
 		'push-changes',
 		'create-new-tag',
-		'bintray'
+		'publish'
 	)
 })
 

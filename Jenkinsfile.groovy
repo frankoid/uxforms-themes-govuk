@@ -61,7 +61,7 @@ node {
                 echo "https://${GIT_USER}:${GIT_PASSWORD}@bitbucket.org/uxforms/${repo}.git" >> /tmp/jenkins/.gitcreds'''
             sh '''export SBT_OPTS="${SBT_OPTS} -Dsbt.jse.engineType=Node -Dsbt.jse.command=$(which nodejs)"
                 npm install
-                gulp publish'''
+                gulp release'''
         }
     } catch (err) {
         currentBuild.result = 'FAILURE'
