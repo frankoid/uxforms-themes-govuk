@@ -1,3 +1,5 @@
+import groovy.json.*
+import static groovy.json.JsonParserType.LAX as RELAX
 
 //Need setting
 def name = "govuk"
@@ -73,24 +75,9 @@ node {
         sleep 30
         sh "curl -u uxformsdeployer:76e8e0cf3e751df431713a2fab2a4cc15125c309 https://api.bintray.com/packages/equalexperts/$bin_repo/$name/versions/_latest > /tmp/$name"
         curl = readFile("/tmp/$name").trim()
-        def version_no = getVersionNo(curl)
-        echo "Version number is ${version_no}"
-        build job: 'FelixDeploy', parameters: [[$class: 'StringParameterValue', name: 'ansible_env', value: 'dev'], [$class: 'StringParameterValue', name: 'felix_host', value: 'forms'], [$class: 'StringParameterValue', name: 'jar_ver', value: "${version_no}"], [$class: 'StringParameterValue', name: 'jar_name_ver', value: "${artif}"], [$class: 'StringParameterValue', name: 'repo', value: "${bin_repo}"]]
-        notify("good", "${repo} ${version_no} deployed to dev")
-    } catch (err) {
-        notify("danger", "${repo} ${version_no} deployment to dev failed")
-        currentBuild.result = 'FAILURE'
-        throw err
-    }
-
-    stage 'Deploy'
-    try {
-        sleep 30
-        sh "curl -u uxformsdeployer:76e8e0cf3e751df431713a2fab2a4cc15125c309 https://api.bintray.com/packages/equalexperts/$bin_repo/$name/versions/_latest > /tmp/$name"
-        curl = readFile("/tmp/$name").trim()
         def version_no = getVersionNo(curl)the
         echo "Version number is ${version_no}"
-        build job: 'Static-Deployer Deployer', parameters: [[$class: 'StringParameterValue', name: 'enviro', value: "${enviro}"], [$class: 'StringParameterValue', name: 'name', value: "${name}"], [$class: 'StringParameterValue', name: 'repo', value: "${bin_repo}"], [$class: 'StringParameterValue', name: 'version_no', value: "${version_no}"]]
+        build job: 'Static-Deployer Deployer', parameters: [[$class: 'StringParameterValue', name: 'enviro', value: 'dev'], [$class: 'StringParameterValue', name: 'name', value: "${name}"], [$class: 'StringParameterValue', name: 'repo', value: "${bin_repo}"], [$class: 'StringParameterValue', name: 'version_no', value: "${version_no}"]]
         notify("good", "${repo} deployed to dev")
     } catch (err) {
         notify("danger", "${repo} deployment to dev failed")
