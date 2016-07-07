@@ -20,17 +20,18 @@ var bintrayopts = {
 	apikey: creds._properties.password
 };
 
-gulp.task('bintray', ['package'], function() {
-	return gulp.src(config.TARGET_DIR + '/*.zip')
-		// .pipe(zip('archive.zip'))
-		.pipe(gulp.dest('.'))
-		// .pipe(bintray(bintrayopts))
-		// .pipe(clean())
-		.pipe(bintray(publish))
-});
+
 
 gulp.task('publish', ['bintray'], function(callback) {
 	var myBintray = new NodeBintray(bintrayopts);
 	myBintray.publishPackage(pkg.name, pkg.version);
 	callback();
+});
+
+gulp.task('bintray', ['package'], function() {
+	return gulp.src(config.TARGET_DIR +'/*.zip') //
+		.pipe(gulp.dest('.'))
+		.pipe(NodeBintray(bintrayopts))
+		.pipe(clean())
+	// .pipe(bintray(publish))
 });
