@@ -6,8 +6,9 @@ gulp.task('release', function(d) {
 		'bump-version',
 		'commit-changes',
 		'push-changes',
-		'create-new-tag',
-		'bintray'
+		'create-new-tag'
+		// ,
+		// 'bintray'
 	)
 })
 
