@@ -85,7 +85,7 @@ node {
 }
 
 def notify(String c, String m) {
-//    slackSend(color: c, message: "<${env.BUILD_URL}|${env.JOB_NAME} ${env.BUILD_NUMBER}> " + m)
+    slackSend(color: c, message: "<${env.BUILD_URL}|${env.JOB_NAME} ${env.BUILD_NUMBER}> " + m)
 }
 
 @NonCPS
