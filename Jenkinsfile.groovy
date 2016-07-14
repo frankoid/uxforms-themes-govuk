@@ -71,9 +71,8 @@ node {
     stage 'Deploy'
     try {
         sleep 30
-        version_file_string = readFile("$workspace/version.sbt").trim()
-        def first_string = postsplitter(version_file_string, '"')
-        def version_no = presplitter(first_string, '-')
+        def version_file_string = readFile("$workspace/version.sbt").trim()
+        def version_no = parseVersionNumber(version_file_string)
         echo "Version number is ${version_no}"
         build job: 'Static-Deployer Deployer', parameters: [[$class: 'StringParameterValue', name: 'enviro', value: 'dev'], [$class: 'StringParameterValue', name: 'name', value: "${name}"], [$class: 'StringParameterValue', name: 'repo', value: "${bin_repo}"], [$class: 'StringParameterValue', name: 'version_no', value: "${version_no}"]]
         notify("good", "${repo} deployed to dev")
@@ -89,13 +88,6 @@ def notify(String c, String m) {
 }
 
 @NonCPS
-def presplitter(String input, String splitter) {
-    def (value1, value2) = input.split(splitter)
-    return value1
-}
-
-@NonCPS
-def postsplitter(String input, String splitter) {
-    def (value1, value2) = input.split(splitter)
-    return value2
+def parseVersionNumber(String versionFileContents) {
+    return versionFileContents.split("\"")[1].split("-")[0]
 }
