@@ -71,9 +71,8 @@ node {
     stage 'Deploy'
     try {
         sleep 30
-        sh "curl -u uxformsdeployer:76e8e0cf3e751df431713a2fab2a4cc15125c309 https://api.bintray.com/packages/equalexperts/$bin_repo/$name/versions/_latest > /tmp/$name"
-        curl = readFile("/tmp/$name").trim()
-        def version_no = getVersionNo(curl)
+        def version_file_string = readFile("$workspace/version.sbt").trim()
+        def version_no = parseVersionNumber(version_file_string)
         echo "Version number is ${version_no}"
         build job: 'Static-Deployer Deployer', parameters: [[$class: 'StringParameterValue', name: 'enviro', value: 'dev'], [$class: 'StringParameterValue', name: 'name', value: "${name}"], [$class: 'StringParameterValue', name: 'repo', value: "${bin_repo}"], [$class: 'StringParameterValue', name: 'version_no', value: "${version_no}"]]
         notify("good", "${repo} deployed to dev")
@@ -89,7 +88,6 @@ def notify(String c, String m) {
 }
 
 @NonCPS
-def getVersionNo(String curly) {
-    def json = new JsonSlurper().setType(RELAX).parseText(curly)
-    return json.name
+def parseVersionNumber(String versionFileContents) {
+    return versionFileContents.split("\"")[1].split("-")[0]
 }
