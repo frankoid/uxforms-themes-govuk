@@ -49,6 +49,10 @@ node {
         throw err
     }
 
+    def version_file_string = readFile("$workspace/package.json").trim()
+    def version_no = getVersionNo(version_file_string)
+    echo "Version number is ${version_no}"
+
     stage 'Release'
     try {
         withCredentials([[$class: 'UsernamePasswordMultiBinding', credentialsId: '1981dc28-d11d-4eb8-9ff0-c6d686a93303', passwordVariable: 'GIT_PASSWORD', usernameVariable: 'GIT_USER']]) {
@@ -71,9 +75,6 @@ node {
     stage 'Deploy'
     try {
         sleep 30
-        def version_file_string = readFile("$workspace/package.json").trim()
-        def version_no = getVersionNo(version_file_string)
-        echo "Version number is ${version_no}"
         build job: 'Static-Deployer Deployer', parameters: [[$class: 'StringParameterValue', name: 'enviro', value: 'dev'], [$class: 'StringParameterValue', name: 'name', value: "${name}"], [$class: 'StringParameterValue', name: 'repo', value: "${bin_repo}"], [$class: 'StringParameterValue', name: 'version_no', value: "${version_no}"]]
         notify("good", "${repo} deployed to dev")
     } catch (err) {
@@ -84,7 +85,7 @@ node {
 }
 
 def notify(String c, String m) {
-//    slackSend(color: c, message: "<${env.BUILD_URL}|${env.JOB_NAME} ${env.BUILD_NUMBER}> " + m)
+    slackSend(color: c, message: "<${env.BUILD_URL}|${env.JOB_NAME} ${env.BUILD_NUMBER}> " + m)
 }
 
 @NonCPS
