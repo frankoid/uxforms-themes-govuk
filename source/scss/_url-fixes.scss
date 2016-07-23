@@ -1,6 +1,6 @@
 // Fixing up url paths inherited from govuk-template
 
-$assetPath : "//static.uxforms.com/content/themes//* @echo THEME_NAME */";
+$assetPath : "//static.uxforms.com//* @echo THEME_NAME */";
 
 a[rel="external"]:after {
   background-image: url(#{$assetPath}/stylesheets/external-links/external-link.png);
