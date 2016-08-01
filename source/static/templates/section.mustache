@@ -6,7 +6,7 @@
     	<h1 id="error-summar-heading" class="heading-medium error-summary-heading">{{ errorTitle }}</h1>
       	<ul class="error-summary-list">
 					{{ #globalErrors }}
-						<li>Here is my global error: {{validationMessage}}</li>
+						<li>{{validationMessage}}</li>
 					{{ /globalErrors }}
         	{{ #widgetErrors }}
 						<li><a href="#{{widgetId}}">{{validationMessage}}</a></li>
