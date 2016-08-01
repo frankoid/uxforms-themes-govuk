@@ -42,3 +42,9 @@ a[rel="external"]:after {
     background-image: url(#{$assetPath}/stylesheets/images/govuk-crest-2x.png);
   }
 }
+
+@media only screen and (-webkit-min-device-pixel-ratio: 2), only screen and (min--moz-device-pixel-ratio: 2), only screen and (-o-min-device-pixel-ratio: 20 / 10), only screen and (min-device-pixel-ratio: 2), only screen and (min-resolution: 192dpi), only screen and (min-resolution: 2dppx) {
+  .icon-important {
+    background-image: url(#{$assetPath}/images/icon-important-2x.png);
+  }
+}
