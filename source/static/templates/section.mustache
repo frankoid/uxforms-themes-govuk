@@ -5,9 +5,12 @@
 	<div class="error-summary" role="group" aria-labelledby="error-summary-heading" tabindex="-1">
     	<h1 id="error-summar-heading" class="heading-medium error-summary-heading">{{ errorTitle }}</h1>
       	<ul class="error-summary-list">
-        	{{ #validationErrors }}
+					{{ #globalErrors }}
+						<li>Here is my global error: {{validationMessage}}</li>
+					{{ /globalErrors }}
+        	{{ #widgetErrors }}
 						<li><a href="#{{widgetId}}">{{validationMessage}}</a></li>
-					{{ /validationErrors }}
+					{{ /widgetErrors }}
 				</ul>
 	</div>
 	{{ /hasValidationErrors }}
