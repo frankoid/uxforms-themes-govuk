@@ -1,0 +1,23 @@
+<input class="form-control" id="{{id}}" type="file" name="{{name}}" {{#required}} aria-required="true" {{/required}} />
+<button class="button" name="{{submitName}}">{{uploadButtonLabel}}</button>
+{{{ widget }}}
+{{#hasFiles}}
+<table>
+  <tr>
+    <th>Preview</th>
+    <th>File Name</th>
+    <th>File Type</th>
+    <th>Size (Bytes)</th>
+    <th></th>
+  </tr>
+{{#files}}
+  <tr>
+    <td>{{{ previewWidget }}}</td>
+    <td>{{filename}}</td>
+    <td>{{contentType}}</td>
+    <td>{{sizeBytes}}</td>
+    <td><button class="button" name="{{deleteName}}" value={{uuid}}>{{deleteButtonLabel}}</button></td>
+   </tr>
+{{/files}}
+</table>
+{{/hasFiles}}
