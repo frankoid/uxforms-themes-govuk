@@ -9,9 +9,6 @@ function addListeners(sectionUrl) {
     $("input:radio").change(function() {
         refreshVisibility(sectionUrl);
     });
-    $("input:checkbox").change(function() {
-        refreshVisibility(sectionUrl);
-    });
     $("select").change(function() {
         refreshVisibility(sectionUrl);
     });
