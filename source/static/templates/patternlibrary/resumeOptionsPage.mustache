@@ -1,0 +1,42 @@
+<h1 class="form-title heading-large">{{pageTitle}}</h1>
+	{{ #hasValidationErrors }}
+	<div class="error-summary" role="group" aria-labelledby="error-summary-heading" tabindex="-1">
+    	<h1 id="error-summary-heading" class="heading-medium error-summary-heading">{{ errorTitle }}</h1>
+      	<ul class="error-summary-list">
+					{{ #globalErrors }}
+						<li>{{validationMessage}}</li>
+					{{ /globalErrors }}
+        	{{ #widgetErrors }}
+						<li><a href="#{{widgetId}}">{{validationMessage}}</a></li>
+					{{ /widgetErrors }}
+				</ul>
+	</div>
+	{{ /hasValidationErrors }}
+
+<form method="post" class="form" enctype="multipart/form-data">
+
+	<p class="text">{{resumeTwoWays}}</p>
+
+  <p class="text">
+    {{resumeImmediately}}
+    <br />
+    <a href="{{immediateURL}}">{{immediateURL}}</a>
+  </p>
+
+  <p class="text">
+    {{resumeAfterConfirmation}}
+    <br />
+    <a href="{{confirmURL}}">{{confirmURL}}</a>
+  </p>
+
+  <p>
+    <a href="{{formPath}}">{{backToForm}}</a>
+  </p>
+
+</form>
+
+<script>
+	$(document).ready(function() {
+		addListeners("{{pageWidgetVisibilityListenerUrl}}")
+	})
+</script>
