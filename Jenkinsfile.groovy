@@ -10,7 +10,8 @@ def bin_repo = "uxforms-releases"
 def repo = "uxforms-"+proj+name  // e.g. uxforms-formdef-patternlibrary
 def workspace = env.JENKINS_HOME+"/workspace/"+env.JOB_NAME  // e.g. the workspace dir
 
-node {
+// See https://github.com/dblock/jenkins-ansicolor-plugin#using-in-pipeline-workflows
+node { wrap([$class: 'AnsiColorBuildWrapper', 'colorMapName': 'XTerm']) {
     stage 'Checkout'
     try {
         // Get some code from bitbucket
@@ -82,7 +83,7 @@ node {
         currentBuild.result = 'FAILURE'
         throw err
     }
-}
+}}
 
 def notify(String c, String m) {
     slackSend(color: c, message: "<${env.BUILD_URL}|${env.JOB_NAME} ${env.BUILD_NUMBER}> " + m)
