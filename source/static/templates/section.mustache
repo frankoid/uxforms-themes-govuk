@@ -1,21 +1,21 @@
 {{{progressBar}}}
 
 <h1 class="form-title heading-large">{{sectionTitle}}</h1>
-	{{ #hasValidationErrors }}
+{{#hasValidationErrors}}
 	<div class="error-summary" role="group" aria-labelledby="error-summary-heading" tabindex="-1">
     	<h1 id="error-summar-heading" class="heading-medium error-summary-heading">{{ errorTitle }}</h1>
       	<ul class="error-summary-list">
-					{{ #globalErrors }}
-						<li>{{validationMessage}}</li>
-					{{ /globalErrors }}
-        	{{ #widgetErrors }}
-						<li><a href="#{{widgetId}}">{{validationMessage}}</a></li>
-					{{ /widgetErrors }}
-				</ul>
+		    {{#globalErrors}}
+                <li>{{validationMessage}}</li>
+            {{/globalErrors}}
+        	{{#widgetErrors}}
+                <li><a href="#{{widgetId}}">{{validationMessage}}</a></li>
+            {{/widgetErrors}}
+        </ul>
 	</div>
-	{{ /hasValidationErrors }}
+{{/hasValidationErrors}}
 
-	<form method="post" class="form" enctype="multipart/form-data">
+<form method="post" class="form" enctype="multipart/form-data">
 
 	{{{ widgets }}}
 
