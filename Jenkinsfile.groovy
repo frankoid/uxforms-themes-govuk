@@ -69,6 +69,7 @@ node { wrap([$class: 'AnsiColorBuildWrapper', 'colorMapName': 'XTerm']) {
                 gulp release'''
         }
     } catch (err) {
+        notify("danger", "release failed")
         currentBuild.result = 'FAILURE'
         throw err
     }
