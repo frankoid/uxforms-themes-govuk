@@ -12,7 +12,10 @@ def workspace = env.JENKINS_HOME+"/workspace/"+env.JOB_NAME  // e.g. the workspa
 
 // See https://github.com/dblock/jenkins-ansicolor-plugin#using-in-pipeline-workflows
 node { wrap([$class: 'AnsiColorBuildWrapper', 'colorMapName': 'XTerm']) {
-    stage 'Checkout'
+
+    def CommittDiff
+
+    stage ('Checkout') {
     try {
         // Get some code from bitbucket
         sh 'rm -rf ./.git ./*'
@@ -24,23 +27,25 @@ node { wrap([$class: 'AnsiColorBuildWrapper', 'colorMapName': 'XTerm']) {
         sh "git log --pretty=%H | head -n 1 > /tmp/HeadCommit$name"
         def headCommit = readFile('/tmp/HeadCommit'+name).trim()
         sh 'echo ${headCommit} ${JenkinsLastCommit}' //Diff Jenkins last commit with the current HEAD
-        def CommittDiff
+
         if (JenkinsLastCommit == "") { //If Jenkins has never committed then dont fail.
             CommittDiff = "there's a commit"
         } else {
             sh "git diff $headCommit $JenkinsLastCommit > /tmp/CommittDiff$name"
             CommittDiff = readFile('/tmp/CommittDiff'+name).trim()
         }
-        if (CommittDiff == ""  && BuildMe == "") {
-            return currentBuild.result = 'SUCCESS' // set result to success as most recent commit is the one by Jenkins
-        }
     } catch (err) {
         notify("danger", "checkout failed")
         currentBuild.result = 'FAILURE'
         throw err
     }
+    }
 
-    stage 'Build'
+    if (CommittDiff == ""  && BuildMe == "") {
+        return currentBuild.result = 'SUCCESS' // set result to success as most recent commit is the one by Jenkins
+    }
+
+    stage ('Build') {
     try {
         sh '''npm install
         gulp package'''
@@ -49,12 +54,13 @@ node { wrap([$class: 'AnsiColorBuildWrapper', 'colorMapName': 'XTerm']) {
         currentBuild.result = 'FAILURE'
         throw err
     }
+    }
 
     def version_file_string = readFile("$workspace/package.json").trim()
     def version_no = getVersionNo(version_file_string)
     echo "Version number is ${version_no}"
 
-    stage 'Release'
+    stage ('Release') {
     try {
         withCredentials([[$class: 'UsernamePasswordMultiBinding', credentialsId: '1981dc28-d11d-4eb8-9ff0-c6d686a93303', passwordVariable: 'GIT_PASSWORD', usernameVariable: 'GIT_USER']]) {
             // Add creds to be able to commit back
@@ -73,8 +79,9 @@ node { wrap([$class: 'AnsiColorBuildWrapper', 'colorMapName': 'XTerm']) {
         currentBuild.result = 'FAILURE'
         throw err
     }
+    }
 
-    stage 'Deploy'
+    stage ('Deploy') {
     try {
         sleep 30
         build job: 'Static-Deployer Deployer', parameters: [[$class: 'StringParameterValue', name: 'enviro', value: 'dev'], [$class: 'StringParameterValue', name: 'name', value: "${name}"], [$class: 'StringParameterValue', name: 'repo', value: "${bin_repo}"], [$class: 'StringParameterValue', name: 'version_no', value: "${version_no}"]]
@@ -83,6 +90,7 @@ node { wrap([$class: 'AnsiColorBuildWrapper', 'colorMapName': 'XTerm']) {
         notify("danger", "${repo} deployment to dev failed")
         currentBuild.result = 'FAILURE'
         throw err
+    }
     }
 }}
 
