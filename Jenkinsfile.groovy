@@ -72,7 +72,13 @@ node { wrap([$class: 'AnsiColorBuildWrapper', 'colorMapName': 'XTerm']) {
                 echo "https://${GIT_USER}:${GIT_PASSWORD}@bitbucket.org/uxforms/${repo}.git" >> /tmp/jenkins/.gitcreds'''
             sh '''export SBT_OPTS="${SBT_OPTS} -Dsbt.jse.engineType=Node -Dsbt.jse.command=$(which nodejs)"
                 npm install
-                gulp release'''
+                export OLD_VERIONS_NUMBER=$(node -pe "require('./package.json').version")
+                gulp release
+                export NEW_VERIONS_NUMBER=$(node -pe "require('./package.json').version")
+                git tag add -m "$OLD_VERIONS_NUMBER"
+                git add package.json
+                git commit -m "Bumping minor version to $NEW_VERIONS_NUMBER"
+                git push origin master'''
         }
     } catch (err) {
         notify("danger", "release failed")
