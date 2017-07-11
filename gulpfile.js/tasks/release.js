@@ -46,6 +46,7 @@ gulp.task('bintray', function() {
             }
         }).catch(function(error) {
             console.error('Cannot upload the file:', error.code);
+            throw error;
         });
 })
 
