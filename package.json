@@ -1,6 +1,6 @@
 {
   "name": "govuk",
-  "version": "0.74.0",
+  "version": "0.75.0",
   "description": "A set of css, images and javascript to implement the GOV.UK styles on uxforms",
   "scripts": {
     "server": "http-server ./target -a localhost -p 8000",
