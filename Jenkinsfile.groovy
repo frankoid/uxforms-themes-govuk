@@ -90,7 +90,12 @@ node { wrap([$class: 'AnsiColorBuildWrapper', 'colorMapName': 'XTerm']) {
     stage ('Deploy') {
     try {
         sleep 30
-        build job: 'Static-Deployer Deployer', parameters: [[$class: 'StringParameterValue', name: 'enviro', value: 'dev'], [$class: 'StringParameterValue', name: 'name', value: "${name}"], [$class: 'StringParameterValue', name: 'repo', value: "${bin_repo}"], [$class: 'StringParameterValue', name: 'version_no', value: "${RELEASE_VERIONS_NUMBER}"]]
+        build job: 'Static-Deployer Deployer', parameters: [
+            [$class: 'StringParameterValue', name: 'enviro', value: 'dev'],
+            [$class: 'StringParameterValue', name: 'name', value: "${name}"],
+            [$class: 'StringParameterValue', name: 'repo', value: "${bin_repo}"],
+            [$class: 'StringParameterValue', name: 'version_no', value: env.RELEASE_VERIONS_NUMBER]
+        ]
         notify("good", "${repo} deployed to dev")
     } catch (err) {
         notify("danger", "${repo} deployment to dev failed")
