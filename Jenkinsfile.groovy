@@ -56,9 +56,7 @@ node { wrap([$class: 'AnsiColorBuildWrapper', 'colorMapName': 'XTerm']) {
     }
     }
 
-    def version_file_string = readFile("$workspace/package.json").trim()
-    def version_no = getVersionNo(version_file_string)
-    echo "Version number is ${version_no}"
+
 
     stage ('Release') {
     try {
@@ -89,12 +87,16 @@ node { wrap([$class: 'AnsiColorBuildWrapper', 'colorMapName': 'XTerm']) {
 
     stage ('Deploy') {
     try {
+        def version_file_string = readFile("$workspace/package.json").trim()
+        def version_no = getVersionNo(version_file_string)
+        echo "Version number is ${version_no}"
+
         sleep 30
         build job: 'Static-Deployer Deployer', parameters: [
             [$class: 'StringParameterValue', name: 'enviro', value: 'dev'],
             [$class: 'StringParameterValue', name: 'name', value: "${name}"],
             [$class: 'StringParameterValue', name: 'repo', value: "${bin_repo}"],
-            [$class: 'StringParameterValue', name: 'version_no', value: env.RELEASE_VERIONS_NUMBER]
+            [$class: 'StringParameterValue', name: 'version_no', value: "${version_no}"]
         ]
         notify("good", "${repo} deployed to dev")
     } catch (err) {
