@@ -56,7 +56,9 @@ node { wrap([$class: 'AnsiColorBuildWrapper', 'colorMapName': 'XTerm']) {
     }
     }
 
-
+    def version_file_string = readFile("$workspace/package.json").trim()
+    def version_no = getVersionNo(version_file_string)
+    echo "Version number is ${version_no}"
 
     stage ('Release') {
     try {
@@ -87,9 +89,6 @@ node { wrap([$class: 'AnsiColorBuildWrapper', 'colorMapName': 'XTerm']) {
 
     stage ('Deploy') {
     try {
-        def version_file_string = readFile("$workspace/package.json").trim()
-        def version_no = getVersionNo(version_file_string)
-        echo "Version number is ${version_no}"
 
         sleep 30
         build job: 'Static-Deployer Deployer', parameters: [
