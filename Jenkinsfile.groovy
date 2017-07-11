@@ -72,10 +72,10 @@ node { wrap([$class: 'AnsiColorBuildWrapper', 'colorMapName': 'XTerm']) {
                 echo "https://${GIT_USER}:${GIT_PASSWORD}@bitbucket.org/uxforms/${repo}.git" >> /tmp/jenkins/.gitcreds'''
             sh '''export SBT_OPTS="${SBT_OPTS} -Dsbt.jse.engineType=Node -Dsbt.jse.command=$(which nodejs)"
                 npm install
-                export OLD_VERIONS_NUMBER=$(node -pe "require('./package.json').version")
+                export RELEASE_VERIONS_NUMBER=$(node -pe "require('./package.json').version")
                 gulp release
                 export NEW_VERIONS_NUMBER=$(node -pe "require('./package.json').version")
-                git tag add -m "$OLD_VERIONS_NUMBER"
+                git tag add -m "$RELEASE_VERIONS_NUMBER"
                 git add package.json
                 git commit -m "Bumping minor version to $NEW_VERIONS_NUMBER"
                 git push origin master'''
@@ -90,7 +90,7 @@ node { wrap([$class: 'AnsiColorBuildWrapper', 'colorMapName': 'XTerm']) {
     stage ('Deploy') {
     try {
         sleep 30
-        build job: 'Static-Deployer Deployer', parameters: [[$class: 'StringParameterValue', name: 'enviro', value: 'dev'], [$class: 'StringParameterValue', name: 'name', value: "${name}"], [$class: 'StringParameterValue', name: 'repo', value: "${bin_repo}"], [$class: 'StringParameterValue', name: 'version_no', value: "${version_no}"]]
+        build job: 'Static-Deployer Deployer', parameters: [[$class: 'StringParameterValue', name: 'enviro', value: 'dev'], [$class: 'StringParameterValue', name: 'name', value: "${name}"], [$class: 'StringParameterValue', name: 'repo', value: "${bin_repo}"], [$class: 'StringParameterValue', name: 'version_no', value: "${RELEASE_VERIONS_NUMBER}"]]
         notify("good", "${repo} deployed to dev")
     } catch (err) {
         notify("danger", "${repo} deployment to dev failed")
