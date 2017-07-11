@@ -18,7 +18,7 @@ gulp.task('release', function(d) {
 gulp.task('bintray', function() {
     var artifactName = pkg.name + '-' + pkg.version + '.zip';
     var localFile = config.TARGET_DIR + '/' + artifactName;
-    var remotePath = '/files/x86/' + artifactName;
+    var remotePath = '/' + artifactName;
 
     var homeDir = process.env[(process.platform == 'win32') ? 'USERPROFILE' : 'HOME'];
     var credentialsFile = fs.readFileSync(homeDir + '/.bintray/.credentials', 'utf8')
