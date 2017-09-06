@@ -17,7 +17,7 @@
     "gulp-bintray": "^0.2.4",
     "gulp-bump": "^1.0.0",
     "gulp-clean": "^0.3.2",
-    "gulp-git": "^1.7.0",
+    "gulp-git": "^2.4.2",
     "gulp-preprocess": "^2.0.0",
     "gulp-sass": "^2.2.0",
     "gulp-zip": "^3.0.2",
@@ -27,7 +27,7 @@
     "json3": "^3.3.2",
     "nodemon": "^1.9.2",
     "properties-reader": "^0.0.15",
-    "require-dir": "^0.3.0",
+    "require-dir": "^0.3.2",
     "run-sequence": "^1.0.2"
   }
 }

@@ -4,7 +4,9 @@
 {{#hasFiles}}
 <table>
   <tr>
-    <th>Preview</th>
+    {{#hasPreview}}
+    <th width="100px">Preview</th>
+    {{/hasPreview}}
     <th>File Name</th>
     <th>File Type</th>
     <th>Size (Bytes)</th>
@@ -12,7 +14,9 @@
   </tr>
 {{#files}}
   <tr>
+    {{#hasPreview}}
     <td>{{{ previewWidget }}}</td>
+    {{/hasPreview}}
     <td>{{filename}}</td>
     <td>{{contentType}}</td>
     <td>{{sizeBytes}}</td>
