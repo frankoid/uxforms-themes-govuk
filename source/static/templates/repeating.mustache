@@ -1,5 +1,5 @@
 {{{ repeatedWidget }}}
-<button class="button" name="{{addRowButtonName}}">Add</button>
+<button class="button" name="{{addRowButtonName}}">{{addRowButtonLabel}}</button>
 <table>
     <thead>
         <tr><th>Values</th><th>Action</th></tr>
@@ -8,7 +8,7 @@
         {{#rows}}
         <tr>
             <td>{{repeatingInput}}</td>
-            <td><button class="button" name="{{deleteRowButtonName}}">delete</button></td>
+            <td><button class="button" name="{{deleteRowButtonName}}">{{deleteRowButtonLabel}}</button></td>
         </tr>
         {{/rows}}
     </tbody>
