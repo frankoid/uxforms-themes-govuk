@@ -41,8 +41,9 @@ node { wrap([$class: 'AnsiColorBuildWrapper', 'colorMapName': 'XTerm']) {
     }
     }
 
-    if (CommittDiff == ""  && BuildMe == "") {
-        return currentBuild.result = 'SUCCESS' // set result to success as most recent commit is the one by Jenkins
+    if (CommittDiff == "" && BuildMe == "") {
+        // set result to that of the previous build
+        return currentBuild.result = currentBuild.rawBuild.getPreviousBuild()?.getResult()?.toString() ?: 'SUCCESS'
     }
 
     stage ('Build') {
