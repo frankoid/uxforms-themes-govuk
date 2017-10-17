@@ -91,7 +91,7 @@ node { wrap([$class: 'AnsiColorBuildWrapper', 'colorMapName': 'XTerm']) {
     try {
 
         sleep 30
-        build job: 'Static-Deployer Deployer', parameters: [
+        build job: 'Static-Deployer_Deployer', parameters: [
             [$class: 'StringParameterValue', name: 'enviro', value: 'dev'],
             [$class: 'StringParameterValue', name: 'name', value: "${name}"],
             [$class: 'StringParameterValue', name: 'repo', value: "${bin_repo}"],
