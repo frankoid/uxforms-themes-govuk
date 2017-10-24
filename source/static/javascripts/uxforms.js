@@ -12,9 +12,6 @@ function addListeners(sectionUrl) {
     $("select").change(function() {
         refreshVisibility(sectionUrl);
     });
-    var $blockLabels = $(".block-label input[type='radio'], .block-label input[type='checkbox']");
-    new GOVUK.SelectionButtons($blockLabels);
-
 }
 
 function refreshVisibility(sectionUrl) {

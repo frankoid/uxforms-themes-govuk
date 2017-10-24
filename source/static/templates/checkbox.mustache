@@ -1,9 +1,7 @@
-<div>
-	{{#choices}}
-	<label class="block-label" for="{{id}}_{{value}}">
-		<input id="{{id}}_{{value}}" name="{{name}}" type="checkbox" value="{{value}}" {{#selected}} checked="checked" {{/selected}}>
-				{{{text}}}
-      </input>
-		</label>
-	{{/choices}}
-</div>
+
+{{#choices}}
+	<div class="multiple-choice">
+		<input id="{{id}}_{{value}}" name="{{name}}" type="checkbox" value="{{value}}" {{#selected}} checked="checked" {{/selected}} />
+		<label for="{{id}}_{{value}}">{{{text}}}</label>
+	</div>
+{{/choices}}

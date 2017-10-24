@@ -1,11 +1,15 @@
-<div class="form-group {{#validationMessages}} error {{/validationMessages}} {{#hidden}} hidden {{/hidden}} {{#forRadioButtons}} selectable-list {{/forRadioButtons}}" id="{{widgetId}}">
+<div class="form-group {{#validationMessages}} form-group-error {{/validationMessages}} {{#hidden}} hidden {{/hidden}} {{#forRadioButtons}} selectable-list {{/forRadioButtons}}" id="{{widgetId}}">
   <fieldset class="{{#displayAsRow}} inline {{/displayAsRow}}">
 
-  			<legend class="heading-medium">{{label}}</legend>
-
-  			{{#hasHint}}
-  				<span class="form-hint">{{hint}}</span>
-  			{{/hasHint}}
+  			<legend>
+          <h1 class="form-label-bold">{{label}}</h1>
+          {{#hasLegend}}
+          <span class="body-text">{{legend}}</span>
+          {{/hasLegend}}
+          {{#hasHint}}
+    				<span class="form-hint">{{hint}}</span>
+    			{{/hasHint}}
+        </legend>
 
   			{{#validationMessages}}
   				<span class="error-message">{{.}}</span>

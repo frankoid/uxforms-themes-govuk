@@ -1,16 +1,18 @@
 {{{progressBar}}}
 
+<div class="grid-row">
+	<div class="column-two-thirds">
 <h1 class="form-title heading-large">{{sectionTitle}}</h1>
 {{#hasValidationErrors}}
-	<div class="error-summary" role="group" aria-labelledby="error-summary-heading" tabindex="-1">
-    	<h1 id="error-summar-heading" class="heading-medium error-summary-heading">{{ errorTitle }}</h1>
+	<div class="error-summary" role="alert" aria-labelledby="error-summary-heading" tabindex="-1">
+    	<h1 id="error-summary-heading" class="heading-medium error-summary-heading">{{ errorTitle }}</h1>
       	<ul class="error-summary-list">
-		    {{#globalErrors}}
-                <li>{{validationMessage}}</li>
-            {{/globalErrors}}
+		    	{{#globalErrors}}
+            <li>{{validationMessage}}</li>
+          {{/globalErrors}}
         	{{#widgetErrors}}
-                <li><a href="#{{widgetId}}">{{validationMessage}}</a></li>
-            {{/widgetErrors}}
+            <li><a href="#{{widgetId}}">{{validationMessage}}</a></li>
+          {{/widgetErrors}}
         </ul>
 	</div>
 {{/hasValidationErrors}}
@@ -19,20 +21,11 @@
 
 	{{{ widgets }}}
 
-	<button class="button secondary" name="{{previousButtonName}}" {{#isFirstSection}}disabled{{/isFirstSection}}>
-		{{previousButton}}
-	</button>
-
-	<button class="button primary">
-		{{^isLastSection}}
-			{{continueButton}}
-		{{/isLastSection}}
-		{{#isLastSection}}
-			{{submitButton}}
-		{{/isLastSection}}
-	</button>
+	<input class="button" type="submit" value="{{^isLastSection}}{{continueButton}}{{/isLastSection}}{{#isLastSection}}{{submitButton}}{{/isLastSection}}" />
 
 </form>
+</div>
+</div>
 
 <script>
 	$(document).ready(function() {
