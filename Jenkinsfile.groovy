@@ -8,7 +8,6 @@ def bin_repo = "uxforms-releases"
 
 //Calculated
 def repo = "uxforms-"+proj+name  // e.g. uxforms-formdef-patternlibrary
-def workspace = env.JENKINS_HOME+"/workspace/"+env.JOB_NAME  // e.g. the workspace dir
 
 // See https://github.com/dblock/jenkins-ansicolor-plugin#using-in-pipeline-workflows
 node { wrap([$class: 'AnsiColorBuildWrapper', 'colorMapName': 'XTerm']) {
@@ -21,7 +20,7 @@ node { wrap([$class: 'AnsiColorBuildWrapper', 'colorMapName': 'XTerm']) {
         sh 'rm -rf ./.git ./*'
         git credentialsId: "1981dc28-d11d-4eb8-9ff0-c6d686a93303", url: "https://bitbucket.org/uxforms/${repo}.git"
         sh "rm -Rf /tmp/headCommit$name /tmp/JenkinsLastCommit$name /tmp/CommittDiff$name"         // Get the SHA1 from Jenkins last commit
-        sh "ls -al '$workspace'"
+        sh "ls -al '${env.WORKSPACE}'"
         sh "git log --author=Jenkins --pretty=%H | head -n 1 > /tmp/JenkinsLastCommit$name"
         def JenkinsLastCommit = readFile('/tmp/JenkinsLastCommit'+name).trim()
         sh "git log --pretty=%H | head -n 1 > /tmp/HeadCommit$name"
@@ -57,7 +56,7 @@ node { wrap([$class: 'AnsiColorBuildWrapper', 'colorMapName': 'XTerm']) {
     }
     }
 
-    def version_file_string = readFile("$workspace/package.json").trim()
+    def version_file_string = readFile("${env.WORKSPACE}/package.json").trim()
     def version_no = getVersionNo(version_file_string)
     echo "Version number is ${version_no}"
 
