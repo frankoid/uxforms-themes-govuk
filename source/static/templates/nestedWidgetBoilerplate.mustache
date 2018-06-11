@@ -1,0 +1,15 @@
+<div class="panel panel-border-narrow {{#validationMessages}} form-group-error {{/validationMessages}} {{#hidden}} hidden {{/hidden}} {{#forRadioButtons}} selectable-list {{/forRadioButtons}}" id="{{widgetId}}">
+
+  <label for="{{id}}">
+    <span class="form-label">{{label}}</span>
+    {{#hasHint}}
+      <span class="form-hint">{{hint}}</span>
+    {{/hasHint}}
+    {{#validationMessages}}
+      <span class="error-message">{{.}}</span>
+    {{/validationMessages}}
+  </label>
+
+  {{ > widget }}
+
+</div>

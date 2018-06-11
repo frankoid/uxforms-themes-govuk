@@ -1,0 +1,7 @@
+{{#choices}}
+  <div class="multiple-choice">
+    <input id="{{id}}_{{value}}" name="{{name}}" type="checkbox" value="{{value}}" {{#selected}} checked="checked" {{/selected}} />
+    <label for="{{id}}_{{value}}">{{{text}}}</label>
+  </div>
+  {{{nestedWidget}}}
+{{/choices}}
