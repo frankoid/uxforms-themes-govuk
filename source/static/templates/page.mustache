@@ -4,10 +4,10 @@
         <h1 id="error-summary-heading" class="heading-medium error-summary-heading">{{errorTitle}}</h1>
         <ul class="error-summary-list">
           {{#globalErrors}}
-            <li>{{validationMessage}}</li>
+            <li>{{{validationMessage}}}</li>
           {{/globalErrors}}
           {{#widgetErrors}}
-            <li><a href="#{{widgetId}}">{{validationMessage}}</a></li>
+            <li><a href="#{{widgetId}}">{{{validationMessage}}}</a></li>
           {{/widgetErrors}}
         </ul>
     </div>
@@ -17,7 +17,7 @@
 
     {{{ widgets }}}
 
-    <p><a href="{{formPath}}" class="link-back">{{backToForm}}</a></p>
+    <p><a href="{{formPath}}" class="link-back">{{{backToForm}}}</a></p>
 
 </form>
 
