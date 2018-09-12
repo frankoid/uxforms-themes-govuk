@@ -2,3 +2,4 @@ node_modules/
 target/
 publish*.sh
 .idea/
+.DS_Store
