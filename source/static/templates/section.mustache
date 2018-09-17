@@ -2,29 +2,45 @@
 
 <div class="grid-row">
 	<div class="column-two-thirds">
-<h1 class="form-title heading-large">{{{sectionTitle}}}</h1>
-{{#hasValidationErrors}}
-	<div class="error-summary" role="alert" aria-labelledby="error-summary-heading" tabindex="-1">
-    	<h1 id="error-summary-heading" class="heading-medium error-summary-heading">{{ errorTitle }}</h1>
-      	<ul class="error-summary-list">
-		    	{{#globalErrors}}
-            <li>{{{validationMessage}}}</li>
-          {{/globalErrors}}
-        	{{#widgetErrors}}
-            <li><a href="#{{widgetId}}">{{{validationMessage}}}</a></li>
-          {{/widgetErrors}}
-        </ul>
+
+		<form method="post" class="form" enctype="multipart/form-data">
+
+			{{^hasProgressBar}}
+				{{^isFirstSection}}
+					{{#hasBackUrl}}
+							<a class="link-back" name="{{previousButtonName}}" href="{{backUrl}}" id="previous">
+									{{previousButton}}
+							</a>
+					{{/hasBackUrl}}
+					{{^hasBackUrl}}
+							<button class="link-back" name="{{previousButtonName}}" type="submit" id="previous">
+									{{previousButton}}
+							</button>
+					{{/hasBackUrl}}
+				{{/isFirstSection}}
+			{{/hasProgressBar}}
+
+			<h1 class="form-title heading-large">{{{sectionTitle}}}</h1>
+			{{#hasValidationErrors}}
+				<div class="error-summary" role="alert" aria-labelledby="error-summary-heading" tabindex="-1">
+			    	<h1 id="error-summary-heading" class="heading-medium error-summary-heading">{{ errorTitle }}</h1>
+			      	<ul class="error-summary-list">
+					    	{{#globalErrors}}
+			            <li>{{{validationMessage}}}</li>
+			          {{/globalErrors}}
+			        	{{#widgetErrors}}
+			            <li><a href="#{{widgetId}}">{{{validationMessage}}}</a></li>
+			          {{/widgetErrors}}
+			        </ul>
+				</div>
+			{{/hasValidationErrors}}
+
+			{{{ widgets }}}
+
+			<input class="button" type="submit" value="{{^isLastSection}}{{continueButton}}{{/isLastSection}}{{#isLastSection}}{{submitButton}}{{/isLastSection}}" />
+
+		</form>
 	</div>
-{{/hasValidationErrors}}
-
-<form method="post" class="form" enctype="multipart/form-data">
-
-	{{{ widgets }}}
-
-	<input class="button" type="submit" value="{{^isLastSection}}{{continueButton}}{{/isLastSection}}{{#isLastSection}}{{submitButton}}{{/isLastSection}}" />
-
-</form>
-</div>
 </div>
 
 <script>

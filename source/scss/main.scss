@@ -2,3 +2,12 @@
 @import "progress-indicator";
 // @import "form-fixes";
 // @import "url-fixes";
+
+.link-back {
+  border-color: transparent transparent $text-colour transparent;
+  background-color: transparent;
+
+  &:hover {
+    cursor: pointer;
+  }
+}
