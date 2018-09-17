@@ -1,7 +1,9 @@
+$path : "//static.uxforms.com//* @echo THEME_NAME *//"; // set initial value used by GDS's file-url function
+
 @import "_govuk-elements.scss";
 @import "progress-indicator";
 // @import "form-fixes";
-// @import "url-fixes";
+@import "url-fixes";
 
 .link-back {
   border-color: transparent transparent $text-colour transparent;
