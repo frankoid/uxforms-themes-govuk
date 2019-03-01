@@ -1,0 +1,15 @@
+{{{ repeatedWidget }}}
+<button class="button" name="{{addRowButtonName}}">{{{addRowButtonLabel}}}</button>
+<table>
+    <thead>
+        <tr><th>Values</th><th>Action</th></tr>
+    </thead>
+    <tbody>
+        {{#rows}}
+        <tr>
+            <td>{{employerName}} {{income}}</td>
+            <td><button class="button" name="{{deleteRowButtonName}}">{{{deleteRowButtonLabel}}}</button></td>
+        </tr>
+        {{/rows}}
+    </tbody>
+</table>
